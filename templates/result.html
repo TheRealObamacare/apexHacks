@@ -1,7 +1,14 @@
-{% extends 'base.html' %}
-{% block content %}
-  <h2>Eco‑Score: {{ score }}</h2>
-  <h3>Sustainable Alternatives</h3>
-  <ul>{% for p in alternatives %}<li>{{ p.sku }} — {{ p.score }}</li>{% endfor %}</ul>
-  <a href="/">Check another product</a>
-{% endblock %}
+<div id="result">
+    <h2>Your Eco‑Score: {{ score | round(1) }}</h2>
+    {% if alternatives %}
+      <h3>Greener Alternatives</h3>
+      <ul>
+        {% for prod in alternatives %}
+          <li>{{ prod.sku }} — Score: {{ prod.score | round(1) }}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No alternatives found above threshold.</p>
+    {% endif %}
+  </div>
+  
