@@ -1,0 +1,8 @@
+flask
+turbo-flask
+flask-sqlalchemy
+redis
+requests
+pytest
+pytest-flask
+pytest-selenium

@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Eco‑Score: {{ score }}</h2>
+  <h3>Sustainable Alternatives</h3>
+  <ul>{% for p in alternatives %}<li>{{ p.sku }} — {{ p.score }}</li>{% endfor %}</ul>
+  <a href="/">Check another product</a>
+{% endblock %}
