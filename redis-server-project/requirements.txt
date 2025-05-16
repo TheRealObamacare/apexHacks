@@ -6,3 +6,7 @@ requests
 pytest
 pytest-flask
 pytest-selenium
+tldextract
+pandas
+scikit-learn
+tabula-py

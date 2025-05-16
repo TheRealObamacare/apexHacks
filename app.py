@@ -17,24 +17,20 @@ from recommender import parse_sku, get_or_create_score, find_alternatives
 def index():
     return render_template('index.html')
 
+from recommender import parse_sku, parse_domain, get_or_create_score, find_similar
+
 @app.route('/score', methods=['POST'])
 def score():
-    url = request.form['url']
-    sku = parse_sku(url)
-    score_value = get_or_create_score(sku, brand=sku, ticker=sku)
-    alternatives = find_alternatives(min_score=80)
-
-    # Build the single “replace” operation
-    update = turbo.replace(
-        render_template('result.html', score=score_value, alternatives=alternatives),
-        target='content'
-    )
-
-    # If the client supports Turbo Streams, return a stream response…
+    url      = request.form['url']
+    sku      = parse_sku(url)
+    domain   = parse_domain(url)
+    category = determine_category(url)
+    score    = get_or_create_score(sku, domain, category)
+    similars = find_similar(sku)
+    fragment = render_template('result.html', score=score, similars=similars)
     if turbo.can_stream():
-        return turbo.stream(update)
-    # …otherwise fall back to a normal full‑page render
-    return render_template('result.html', score=score_value, alternatives=alternatives)
+        return turbo.stream(turbo.replace(fragment, target='content'))
+    return fragment
 
 if __name__ == '__main__':
     with app.app_context():

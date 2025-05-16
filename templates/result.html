@@ -1,14 +1,12 @@
-<div id="result">
-    <h2>Your Eco‑Score: {{ score | round(1) }}</h2>
-    {% if alternatives %}
-      <h3>Greener Alternatives</h3>
-      <ul>
-        {% for prod in alternatives %}
-          <li>{{ prod.sku }} — Score: {{ prod.score | round(1) }}</li>
-        {% endfor %}
-      </ul>
-    {% else %}
-      <p>No alternatives found above threshold.</p>
-    {% endif %}
-  </div>
-  
+<h2>Your Sustainability Score: {{ score | round(2) }}</h2>
+{% if similars %}
+  <h3>Similar Products</h3>
+  <ol>
+    {% for p in similars %}
+      <li>{{ p.sku }} — Score: {{ p.composite_score | round(2) }} (Source: {{ p.data_source }})</li>
+    {% endfor %}
+  </ol>
+{% else %}
+  <p>No similar products found.</p>
+  <p>Try checking the URL or searching for a different product.</p>
+{% endif %}

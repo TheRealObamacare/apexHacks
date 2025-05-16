@@ -1,8 +1,6 @@
-{% extends "base.html" %}
-{% block content %}
-  <h1>Eco‑Friendly Shopping Assistant</h1>
-  <form method="post" action="/score">
-    <input name="url" type="url" placeholder="Enter product URL" required>
-    <button type="submit">Check Eco‑Score</button>
+<form method="post" action="/score">
+    <input name="url" type="url" placeholder="Product URL" required>
+    <button type="submit">Get Sustainability Score</button>
   </form>
-{% endblock %}
+  <div id="content">{% block content %}{% endblock %}</div>
+  
