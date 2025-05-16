@@ -10,3 +10,4 @@ tldextract
 pandas
 scikit-learn
 tabula-py
+beautifulsoup4
