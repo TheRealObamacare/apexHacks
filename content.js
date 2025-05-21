@@ -1,1 +1,0 @@
-// Chrome extension content script
