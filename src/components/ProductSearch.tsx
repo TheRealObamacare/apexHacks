@@ -4,6 +4,7 @@ import ProductDetails from './ProductDetails';
 import SimilarProducts from './SimilarProducts';
 import { fetchProductData } from '../utils/productData';
 import { Product } from '../types/Product';
+import ProductSuggestions, { PRODUCT_SUGGESTIONS } from './ProductSuggestions';
 
 const ProductSearch: React.FC = () => {
   const [url, setUrl] = useState('');
@@ -37,6 +38,31 @@ const ProductSearch: React.FC = () => {
     }
   };
 
+  const handleSuggestion = async (suggestedUrl: string, fallback: any, alternatives: any[]) => {
+    setUrl(suggestedUrl);
+    setLoading(true);
+    setError('');
+    try {
+      const { product, similar } = await fetchProductData(suggestedUrl);
+      setProduct(product);
+      setSimilarProducts(similar);
+    } catch (err) {
+      // Use fallback if fetchProductData fails
+      setProduct({
+        id: `prod-fallback-${Date.now()}`,
+        sku: suggestedUrl.split('/').pop()?.split('.')[0] || 'unknown',
+        compositeScore: 0,
+        trendUp: false,
+        ...fallback,
+        fallbackWarning: true,
+        dataSource: fallback.dataSource || 'fallback',
+      });
+      setSimilarProducts(alternatives || []);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="max-w-5xl mx-auto">
       <div className="mb-12 text-center">
@@ -45,6 +71,11 @@ const ProductSearch: React.FC = () => {
           Enter the URL of any product to see its environmental impact and discover more eco-friendly alternatives.
         </p>
       </div>
+      
+      {/* Suggestions section */}
+      {!product && !loading && (
+        <ProductSuggestions onSuggest={handleSuggestion} />
+      )}
       
       <form onSubmit={handleSearch} className="mb-8">
         <div className="flex flex-col md:flex-row gap-3">

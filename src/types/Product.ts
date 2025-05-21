@@ -19,6 +19,8 @@ export interface Product {
   
   // UI helpers
   trendUp: boolean;
+  fallbackWarning?: boolean;
+  brand?: string;
 }
 
 export interface ProductMetrics {

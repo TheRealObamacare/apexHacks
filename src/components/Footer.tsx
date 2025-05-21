@@ -9,7 +9,7 @@ const Footer: React.FC = () => {
           <div>
             <div className="flex items-center space-x-2 mb-4">
               <Leaf className="h-6 w-6 text-green-400" />
-              <h2 className="text-xl font-bold">Eco-Shop Assistant</h2>
+              <h2 className="text-xl font-bold">Carbon Compass</h2>
             </div>
             <p className="text-gray-400">
               Helping you make more sustainable shopping choices with accurate environmental impact data.
@@ -40,7 +40,7 @@ const Footer: React.FC = () => {
         </div>
         
         <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-          <p>&copy; {new Date().getFullYear()} Eco-Shop Assistant. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Carbon Compass. All rights reserved.</p>
         </div>
       </div>
     </footer>
